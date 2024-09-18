@@ -1,48 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'home_page.dart';
-import 'login_page.dart';
-import 'signup_page.dart';
+import 'package:notepad/Home/Home.dart';
+import 'package:notepad/Login/Login.dart';
+import 'package:notepad/Register/Register.dart';
 
-// Define a class for app-wide state management if needed
-class AppState extends ChangeNotifier {
-  // State properties and methods here
-}
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize shared preferences or other persistent storage here
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AppState()), // App state management
-      ],
-      child: MyApp(),
-    ),
-  );
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Notepad',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
-        '/': (context) => HomePage(),
-        '/login': (context) => LoginPage(),
-        '/signup': (context) => SignupPage(),
-      },
-      onUnknownRoute: (settings) {
-        return MaterialPageRoute(builder: (context) => HomePage());
+        '/': (context) => const Home(),
+        '/login': (context) => const Login(),
+        '/register': (context) => const Register(),
       },
     );
   }
